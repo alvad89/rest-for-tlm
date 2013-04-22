@@ -1,0 +1,127 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Web кабинет</title>
+    <link rel="stylesheet" href="css/jquery-ui.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/stylesheet.css" type="text/css" media="screen">
+    <link rel=stylesheet href="css/jquery.ui.datepicker.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/1.css" type="text/css" media="screen">
+    <script src="scripts/raphael.js"></script>
+    <script src="scripts/popup.js"></script>
+    <script src="scripts/jquery-1.9.0.js"></script>
+    <script src="scripts/jquery.ui.core.js"></script>
+    <script src="scripts/jquery.ui.datepicker.js"></script>
+    <script src="scripts/jquery.ui.widget.js"></script>
+    <script src="scripts/analytics.js"></script>
+    
+     <style type="text/css" media="screen">
+        #holder {
+	height: 250px;
+	margin: -125px 0 0 -400px;
+	width: 800px;
+        }
+    </style>
+
+</head>
+<body>
+<h1>ООО "Златоустовский машиностроительный завод"</h1>
+<h4>Корректор: ERZ-2000</h4>
+
+<ul class="tab">
+    <li class="active"><a href="#"><span>Текущая информация</span></a></li>
+    <li><a href="#"><span>Суточные архивы</span></a></li>
+    <li><a href="#"><span>Часовые архивы</span></a></li>
+
+</ul>
+
+<form name="DailyArchive" method="get" action="" id="formDailyArchive"><input type="text" name="beginDate" id="datepickerBegin" size="10" value="С"/><input type="text" name="endDate" id="datepickerEnd" size="10" value="По"></form>
+<script>
+    $(function() {
+        $( "#datepickerBegin" ).datepicker();
+	$( "#datepickerEnd" ).datepicker();
+    });
+</script>
+<div id="buttonDaily"><a href="#" class="dailyArchiv">Суточные архивы</a></div><br><br>
+
+<form name="HourlyArchive" method="get" action="" id="formHourlyArchive"><input type="text" name="beginDate" id="datepickerBeginHourly" size="10" value="С"/><input type="text" name="endDate" id="datepickerEndHourly" size="10" value="По"></form>
+<script>
+    $(function() {
+        $( "#datepickerBeginHourly" ).datepicker();
+	$( "#datepickerEndHourly" ).datepicker();
+    });
+</script>
+<div id="buttonHourly"><a href="#" class="dailyArchiv">Часовые архивы</a></div>
+<div id="headerDiag"><p>Текущие данные за последние 24 часа</p></div>
+<table id="data">
+    <tfoot>
+    <tr>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th>
+        <th>9</th>
+        <th>10</th>
+        <th>11</th>
+        <th>12</th>
+        <th>13</th>
+        <th>14</th>
+        <th>15</th>
+        <th>16</th>
+        <th>17</th>
+        <th>18</th>
+        <th>19</th>
+        <th>19</th>
+        <th>20</th>
+        <th>22</th>
+        <th>23</th>
+        <th>24</th>
+
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr>
+        <td>23</td>
+        <td>25</td>
+        <td>27</td>
+        <td>25</td>
+        <td>54</td>
+        <td>59</td>
+        <td>79</td>
+        <td>47</td>
+        <td>27</td>
+        <td>44</td>
+        <td>44</td>
+        <td>51</td>
+        <td>56</td>
+        <td>83</td>
+        <td>12</td>
+        <td>91</td>
+        <td>52</td>
+        <td>12</td>
+        <td>40</td>
+        <td>44</td>
+        <td>60</td>
+        <td>29</td>
+        <td>22</td>
+        <td>33</td>
+
+    </tr>
+    </tbody>
+</table>
+<div id="holder"><p></p>
+</div>
+<div id="tableButton"><a href="#" class="dailyArchiv">Таблица</a></div>
+<div id="graphButton"><a href="#" class="dailyArchiv">График</a></div>
+
+
+<br>
+
+<!--<div id="dateEndHour"><p>Date: <input type="text" id="datepicker" /></p></div>-->
+
+
+</body>
+</html>

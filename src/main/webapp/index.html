@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Добро пожаловать!</title>
+    
+	<link rel="stylesheet" href="css/stylesheet.css" />
+    <link rel="stylesheet" href="css/jquery-ui.css" type="text/css" media="screen"/>
+    <link rel=stylesheet href="css/jquery.ui.datepicker.css" type="text/css" media="screen"/>
+    <link rel=stylesheet href="css/demo_table.css" type="text/css" media="screen"/>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+    <script src="scripts/raphael.js"></script>
+    <script src="scripts/popup.js"></script>
+    <script src="scripts/jquery-1.9.0.js"></script>
+    <script src="scripts/jquery-ui.js"></script>
+    <script src="scripts/jquery.dataTables.js"></script>
+    <script src="scripts/jquery.ui.datepicker.js"></script>
+    <script src="scripts/jquery.mousewheel.js"></script>
+    <script src="scripts/jquery.ui.widget.js"></script>
+
+	<script src="scripts/script.js"></script>
+
+    <style type="text/css" media="screen" >
+      #holder {
+
+          display: none;
+        margin: -80px 0 0 -380px;
+        width: 800px;
+        }
+	#tableHolder{
+
+        height: 80%;
+        margin-top: 25px;
+        margin-left: 5px;
+
+        }
+
+			.dataTables_info { padding-top: 0; }
+			.dataTables_paginate { padding-top: 0; }
+			.css_right { float: right; }
+			#example_wrapper .fg-toolbar { font-size: 1.8em }
+			#theme_links span { float: left; padding: 2px 10px; }
+			#example_wrapper { -webkit-box-shadow: 2px 2px 6px #666; box-shadow: 2px 2px 6px #666; border-radius: 5px; }
+			#example tbody {
+				font-size: 18px;
+				border-left: 1px solid #AAA;
+				border-right: 1px solid #AAA;
+			}
+			#example thead th:first-child { border-left: 1px solid #AAA; }
+			#example thead th:last-child { border-right: 1px solid #AAA; }
+
+    </style>
+       
+</head>
+<body>
+
+<div id="parent_popup">
+    <div id="loader">
+        <div class="circle"></div>
+        <div class="circle1"></div></div></div>
+
+<h1>ООО "НОВАТЭК - Челябинск"</h1>
+<h3>Система телеметрии</h3> <br>  <br>
+<div id="titleEnterprise"><p>.</p></div>
+
+		
+<form name="search" method="get" action="" id="formsearch"><input type="search" id="searchInput" size="30" value="Поиск" /></form>
+
+<div id="listEnterprise"></div>
+
+<ul class="tab" id="vkladk">
+    <li class="active"><a href="#" onclick="showOnlyCurrent()"><span>Текущая информация</span></a></li>
+    <li><a href="#" onclick="showOnlyDay()"><span>Суточные архивы</span></a></li>
+    <li><a href="#" onclick="showOnlyHour()"><span>Часовые архивы</span></a></li>
+    <li><a href="#" onclick="showOnlyAttention()"><span>Нештатные ситуации</span></a></li>
+
+</ul>
+
+<script>
+    $(function() {
+        $("li").click(function(e) {
+            e.preventDefault();
+            $("li").removeClass("active");
+            $(this).addClass("active");
+        });
+    });
+
+</script>
+<div id="dayTab" class="grad">
+    <div id="headerDiagDay"><p> Выберите даты:</p></div>
+<form name="DailyArchive" method="get" action="" id="formDailyArchive">C:<input type="text" name="beginDate" id="datepickerBegin" size="9" class="begin"/>
+
+    По:<input type="text" name="endDate" id="datepickerEnd" size="9" class="end"/></form>
+  <div id="buttonDaily"><a href="#" class="dailyArchiv" onclick="day()">Показать архив</a></div>
+    <div id="tableDay">
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="dayTable" style="width:98%">
+            <thead>
+            <tr>
+                <th width="30%">Время начала</th>
+                <th width="30%">Время окончания</th>
+                <th width="20%" >Рабочий объем, м3</th>
+                <th width="20%">Нормальный объём, м3</th>
+                <th>Давление</th>
+                <th>Температура</th>
+
+
+
+
+            </tr>
+            </thead>
+
+        </table>
+    </div>
+</div>
+<script>
+    $(function() {
+        var now = new Date();
+        var month = (now.getMonth() + 1);
+        var day = now.getDate();
+        if(month < 10)
+            month = "0" + month;
+        if(day < 10)
+            day = "0" + day;
+        var today = now.getFullYear() +'-'+month+'-'+'01';
+    $("#datepickerBegin").val(today);
+    $( "#datepickerBegin" ).datepicker();
+    today = now.getFullYear() +'-'+month+'-'+day;
+    $("#datepickerEnd").val(today);
+    $( "#datepickerEnd" ).datepicker();
+    });
+
+</script>
+
+
+<div id="hourTab" class="grad">
+    <div id="headerDiagHour"><p> Выберите даты:</p></div>
+<form name="HourlyArchive" method="get" action="" id="formHourlyArchive">C:
+    <input type="text" name="beginDate" id="datepickerBeginHourly" size="9" class="begin"/>
+    <input type="text"  id="spinBegin" name="value" size="1" />
+    По:<input type="text" name="endDate" id="datepickerEndHourly" size="9" class="end"/>
+    <input type="text" id="spinEnd" name="value" size="1" />
+
+</form>
+    <div id="buttonHourly"><a href="#" class="dailyArchiv" onclick="hour()">Показать архив</a></div>
+
+    <div id="tableHour">
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="hourTable" style="width:98%">
+            <thead>
+            <tr>
+
+                <th width="30%">Время начала</th>
+                <th width="30%">Время окончания</th>
+                <th width="20%" >Рабочий объем, м3</th>
+                <th width="20%">Нормальный объём, м3</th>
+                <th width="20%">Давление</th>
+                <th>Температура</th>
+            </tr>
+            </thead>
+
+        </table>
+    </div>
+
+</div>
+<script>
+
+    $(function() {
+        var now = new Date();
+        var month = (now.getMonth() + 1);
+        var day = now.getDate();
+        if(month < 10)
+            month = "0" + month;
+        if(day < 10)
+            day = "0" + day;
+        var today = now.getFullYear() +'-'+month+'-'+'01';
+        $("#datepickerBeginHourly").val(today);
+    $( "#datepickerBeginHourly" ).datepicker();
+        today = now.getFullYear() +'-'+month+'-'+day;
+        $("#datepickerEndHourly").val(today);
+    $( "#datepickerEndHourly" ).datepicker();
+    });
+</script>
+
+
+
+
+<div id="current" class="grad">
+<div id="headerDiag"><p>Последние текущие данные</p></div>
+    <div id="tableButton"><a href="#" class="dailyArchiv" onclick="isTable()">Таблица</a></div>
+    <div id="graphButton"><a href="#" class="dailyArchiv" onclick="isGraph()">График</a></div>
+<table id="data"></table>
+<div id="holder"><p></p></div>
+<div id="tableHolder">
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" style="width:98%">
+        <thead>
+        <tr>
+            <th width="30%">Время</th>
+            <th width="20%" >Рабочий объем, м3</th>
+            <th width="20%">Нормальный объём, м3</th>
+            <th width="20%">Давление</th>
+            <th>Температура</th>
+        </tr>
+        </thead>
+
+    </table>
+</div>
+
+
+</div>
+<script type="text/javascript">
+    var tableForCurrent = $('#data');
+    var table = document.getElementById("dannie");
+    var jsonData = null;
+    $(document).ajaxStart(function(){
+        console.log("start!!!");
+        $('#parent_popup').show();
+    });
+
+    $(document).ajaxStop(function(){
+        console.log("stoooop!");
+        $('#parent_popup').hide();
+    });
+
+
+
+    var currentVol = function (id){
+    var data1=null;
+    var dannie = $('#dannie');
+
+        $('#example').dataTable( {
+            "sLengthMenu": "Показывать по _MENU_ записей",
+            "sZeroRecords": "Ничего не найдено",
+            "sInfo": "Показано _START_ to _END_ of _TOTAL_ записей",
+            "sInfoEmpty": "Показано 0 to 0 of 0 записей",
+            "sInfoFiltered": "(Поиск по _MAX_ записей)",
+
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers",
+            "sScrollY": 450,
+            "iDisplayLength": 50,
+            "bProcessing": true,
+            "bDestroy": true,
+            "sAjaxDataProp":"response",
+            "sAjaxSource": "services/currentVolTab/"+id
+
+        } );
+
+    $.ajax( 'services/currentVol/'+id, {
+        dataType:'json',
+        type:'GET',
+        success:function ( data1 ) {
+           tableForCurrent.empty();
+        //    dannie.empty();
+            tableForCurrent.prepend(function(j){
+                var result = '<tfoot><tr>';
+                for(var i=0; i<data1.workVol.length; i++){
+                    result= result+'<th>'+data1.workVol[i].timeCorrector+'</th>';
+                }
+                result=result+'</tr></tfoot><tbody><tr>';
+                for(var i=0; i<data1.workVol.length; i++){
+                    result=result+'<td>'+data1.workVol[i].current+'</td>';
+                }
+                result=result +'</tr></tbody>';
+                return result;
+            });
+          /*  dannie.prepend(function(j){
+                var res = '';
+            //    var res = '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" style="width:800px">'+
+            //            '<thead><tr><th>Время</th><th>Рабочий объем, м3</th><th>Нормальный объём, м3</th><th>Давление</th>'+
+            //            '<th>Температура</th></tr></thead><tbody id=dannie>';
+                for(var i=0; i<data1.workVol.length; i++){
+                            res +='<tr class="gradeA odd"><td>'+data1.workVol[i].timeCorrector+
+                            '</td><td>'+data1.workVol[i].current+'</td><td>'+data1.normalVol[i].current+
+                            '</td><td>'+data1.pressure[i].current+'</td><td>'+data1.temper[i].current+'</td></tr>';
+                }
+                return res;
+            }); */
+
+        }
+    }).error( function()  {
+                console.log("error");
+            }); };
+
+    var node = document.getElementById("listEnterprise");
+    $.ajax( 'services/allEnterprise', {
+        dataType:'json',
+        type:'GET',
+        success:function ( data1 ) {
+            document.getElementById("titleEnterprise").innerHTML = '<p id="'+data1.response[0].id+'">'+data1.response[0].enterprise+'</p>';
+            for(var i=0; i<data1.response.length; i++){
+                var ahref = document.createElement('a');
+                ahref.href="#";
+                ahref.className='enterprise';
+                ahref.onclick= function(i){
+                    return function() { document.getElementById("titleEnterprise").innerHTML = '<p id="'+data1.response[i].id+'">'+data1.response[i].enterprise+'</p>';
+                        day();
+                        hour();
+                        //current();
+                        currentVol(data1.response[i].id);
+                        $('#holder').empty();
+                        graph(data1.response[i].id);
+
+                        }
+                }(i);
+
+                ahref.innerHTML=data1.response[i].enterprise;
+                node.insertBefore(ahref, null);
+
+            }
+            currentVol(data1.response[0].id);
+            graph(data1.response[0].id);
+        }
+    }).error( function() {
+                console.log("error");
+            });
+    var current = function (){
+        var idEnt = document.getElementById("titleEnterprise");
+        currentVol(idEnt.childNodes[0].id);
+        $('#holder').empty();
+        graph(idEnt.childNodes[0].id);
+    }
+    var showOnlyCurrent = function(){
+        $('#hourTab').hide();
+        $('#dayTab').hide();
+        $('#attenTab').hide();
+        $('#current').show();
+        current();
+    }
+
+
+    $(function() {
+        $("a").click(function(e) {
+            e.preventDefault();
+            $("a").removeClass("active");
+            $(this).addClass("active");
+        });
+    });
+
+
+    </script>
+
+
+
+
+<script type="text/javascript">
+    $(function() {
+        var spinBegin = $( "#spinBegin" ).spinner({
+            min: 1,
+            max: 24,
+            step: 1
+
+        });
+        var now = new Date();
+        var month = now.getMonth()+1;
+        if(month < 10)
+            month = "0" + month;
+        var day = now.getDate();
+        //if (day<10) day = "0"+day;
+        if(now.getHours()<12){
+            if(day<10)
+            $("#datepickerBeginHourly").val(now.getFullYear()+'-'+month+'-0'+(day-1));
+            else $("#datepickerBeginHourly").val(now.getFullYear()+'-'+month+'-'+(day-1));
+        }
+        else {
+
+            $("#datepickerBeginHourly").val(now.getFullYear()+'-'+month+'-'+day);
+
+        }
+        spinBegin.val(12);
+        var spinEnd = $( "#spinEnd" ).spinner({
+            min: 1,
+            max: 24,
+            step: 1
+        });
+
+        spinEnd.val(now.getHours());
+    });
+</script>
+<div id="attenTab" class="grad">
+    <div id="headerAtten"><p>Выберите даты:</p></div>
+    <form name="AttenArchive" method="get" action="" id="formAtten">
+        C:<input type="text" name="beginDate" id="datepickerBeginAtten" size="9" class="begin"/>
+        По:<input type="text" name="endDate" id="datepickerEndAtten" size="9" class="end"/></form>
+    <div id="buttonAtten"><a href="#" class="dailyArchiv" onclick="attention()">Показать архив</a></div>
+
+</div>
+<script src="scripts/analytics.js"></script>
+</body>
+</html>

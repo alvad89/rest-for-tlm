@@ -1,0 +1,67 @@
+body {
+    background: #333;}
+ul, li{
+    border:0;
+    margin:0;
+    padding:0;
+    list-style:none
+}
+ul{
+
+    height:29px;
+    padding-left:20px;
+}
+.tab{
+    border-bottom:solid 1px #DEDEDE;
+}
+
+.tab a:link, .tab a:visited{
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    float:left;
+    height:30px;
+    background:url(images/tab-round.png) no-repeat right -30px;
+    color:#666;
+    font-weight:bold;
+    text-decoration:none;
+    padding:0 14px 0 0;
+}
+.tab a span{
+
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    float:left;
+    height:30px;
+    background: no-repeat left -30px;
+    padding:0 0 0 14px;
+    line-height:30px;
+    cursor:pointer
+}
+.tab a:hover{
+    background-position:right -60px;
+
+}
+.tab a:hover span{
+    background-position:left -60px;
+}
+.active a:link, .active a:visited, .active a:visited, .active a:hover{
+
+    background-position:right 0;
+
+}
+.active a span, .active a:hover span{
+    background-postition:left 0;
+}
+
+
+
