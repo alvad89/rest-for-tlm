@@ -149,6 +149,24 @@ public class ServicesRest {
         return str;
     }
 
+    /*
+    * Attention
+     */
+    @GET
+    @Path("attenVol/{id}")
+    @Produces("application/json")
+    public String getAttenVol(@PathParam(value = "id") Integer id,
+                              @QueryParam("dateBegin") String dateBegin,
+                              @QueryParam("dateEnd") String dateEnd){
+        String str ="{";
+        connectService = new ConnectToBD();
+        List<String> result = connectService.attenVol(id,Timestamp.valueOf(dateBegin), Timestamp.valueOf(dateEnd));
+        for (String s:result){
+            str = str.concat(s);
+        }
+        str=str.concat("]}");
+        return str;
+    }
 
 
 

@@ -24,7 +24,7 @@
     <style type="text/css" media="screen" >
       #holder {
 
-          display: none;
+        display: none;
         margin: -80px 0 0 -380px;
         width: 800px;
         }
@@ -64,9 +64,9 @@
 <h3>Система телеметрии</h3> <br>  <br>
 <div id="titleEnterprise"><p>.</p></div>
 
-		
-<form name="search" method="get" action="" id="formsearch"><input type="search" id="searchInput" size="30" value="Поиск" /></form>
-
+<div id='search'>
+<form name="search" method="get" action="" id="formsearch"><input type="text" id="searchInput" size="30" value="Поиск" /></form>
+</div>
 <div id="listEnterprise"></div>
 
 <ul class="tab" id="vkladk">
@@ -263,6 +263,7 @@
                     return function() { document.getElementById("titleEnterprise").innerHTML = '<p id="'+data1.response[i].id+'">'+data1.response[i].enterprise+'</p>';
                         day();
                         hour();
+                        attention();
                         currentVol(data1.response[i].id);
                         $('#holder').empty();
                         graph(data1.response[i].id);
@@ -338,6 +339,20 @@
         C:<input type="text" name="beginDate" id="datepickerBeginAtten" size="9" class="begin"/>
         По:<input type="text" name="endDate" id="datepickerEndAtten" size="9" class="end"/></form>
     <div id="buttonAtten"><a href="#" class="dailyArchiv" onclick="attention()">Показать архив</a></div>
+
+    <div id="tableAtten">
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="attenTable" style="width:98%">
+            <thead>
+            <tr>
+                <th>Время начала</th>
+                <th>Время окончания</th>
+                <th>Описание</th>
+
+            </tr>
+            </thead>
+
+        </table>
+    </div>
 
 </div>
 <script src="scripts/analytics.js"></script>

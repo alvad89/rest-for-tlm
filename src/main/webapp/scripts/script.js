@@ -172,6 +172,29 @@ var showOnlyAttention = function(){
 };
 var attention = function(){
 
+    var dateBegin = document.getElementById("datepickerBegin").value;
+    var dateEnd = document.getElementById("datepickerEnd").value;
+    dateBegin = dateBegin +" 12:00:00";
+    dateEnd = dateEnd + " 11:59:59";
+    var idEnt = document.getElementById("titleEnterprise");
+    $('#attenTable').dataTable( {
+        "sLengthMenu": "Показывать по _MENU_ записей",
+        "sZeroRecords": "Ничего не найдено",
+        "sInfo": "Показано _START_ to _END_ of _TOTAL_ записей",
+        "sInfoEmpty": "Показано 0 to 0 of 0 записей",
+        "sInfoFiltered": "(Поиск по _MAX_ записей)",
+
+        "iDisplayLength": 50,
+        "sScrollY": 480,
+        "bJQueryUI": true,
+        "bProcessing": true,
+        "bDestroy": true,
+        "sPaginationType": "full_numbers",
+
+        "sAjaxDataProp":"response",
+        "sAjaxSource": "services/attenVol/"+idEnt.childNodes[0].id+"?dateBegin="+dateBegin+"&dateEnd="+dateEnd
+
+    } );
 };
 $(function() {
     var now = new Date();

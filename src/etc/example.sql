@@ -37,7 +37,7 @@ CREATE TABLE  `Telemetria`.`Alarm` (
   KEY `fk_Alarm_AlarmTag1` (`AlarmTag_idAlarmTag`),
   CONSTRAINT `fk_Alarm_AlarmTag1` FOREIGN KEY (`AlarmTag_idAlarmTag`) REFERENCES `AlarmTag` (`idAlarmTag`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Alarm_kp1` FOREIGN KEY (`kp_idkp`) REFERENCES `kp` (`idkp`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Telemetria`.`Alarm`
@@ -45,6 +45,16 @@ CREATE TABLE  `Telemetria`.`Alarm` (
 
 /*!40000 ALTER TABLE `Alarm` DISABLE KEYS */;
 LOCK TABLES `Alarm` WRITE;
+INSERT INTO `Telemetria`.`Alarm` VALUES  (1,1,1,'2013-04-23 12:00:00','2013-04-23 18:00:00'),
+ (2,1,4,'2013-04-22 11:00:00','2013-04-22 19:56:13'),
+ (3,2,2,'2013-04-21 11:00:00','2013-04-21 13:00:00'),
+ (4,2,5,'2013-04-22 10:09:23','2013-04-24 11:00:01'),
+ (5,3,3,'2013-04-22 18:00:00','2013-04-23 12:13:14'),
+ (6,3,6,'2013-04-21 10:00:00','2013-04-22 11:11:11'),
+ (7,4,4,'2013-04-21 11:03:50','2013-04-24 11:11:12'),
+ (8,4,2,'2013-04-22 13:04:24','2013-04-22 14:34:23'),
+ (9,5,3,'2013-04-01 13:00:00','2013-04-22 11:23:45'),
+ (10,5,1,'2013-04-06 12:00:00','2013-04-24 15:23:23');
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `Alarm` ENABLE KEYS */;
 
@@ -58,7 +68,7 @@ CREATE TABLE  `Telemetria`.`AlarmTag` (
   `idAlarmTag` int(11) NOT NULL AUTO_INCREMENT,
   `AlarmTag` varchar(200) NOT NULL,
   PRIMARY KEY (`idAlarmTag`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Telemetria`.`AlarmTag`
@@ -66,6 +76,12 @@ CREATE TABLE  `Telemetria`.`AlarmTag` (
 
 /*!40000 ALTER TABLE `AlarmTag` DISABLE KEYS */;
 LOCK TABLES `AlarmTag` WRITE;
+INSERT INTO `Telemetria`.`AlarmTag` VALUES  (1,'Нет связи с корректором'),
+ (2,'Нет питания'),
+ (3,'Открыта дверь шкафа'),
+ (4,'Превышен расход по верхней границе'),
+ (5,'Выход за пределы по давлению'),
+ (6,'Выход за пределы по нижней границе по расходу');
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `AlarmTag` ENABLE KEYS */;
 

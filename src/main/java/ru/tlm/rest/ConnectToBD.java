@@ -443,7 +443,7 @@ public class ConnectToBD {
 
         try {
             //рабочий объём
-            PreparedStatement state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  Current FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=1 ORDER BY timeCorrektor  LIMIT 24");
+            PreparedStatement state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  CurrentValues FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=1 ORDER BY timeCorrektor  LIMIT 24");
             try{
                 state.setInt(1, id);
 
@@ -453,19 +453,19 @@ public class ConnectToBD {
                     volumeTime.add(rst.getString(3));
                 }
                 //нормальный объём
-                state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  Current FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=2 ORDER BY timeCorrektor  LIMIT 24");
+                state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  CurrentValues FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=2 ORDER BY timeCorrektor  LIMIT 24");
                 state.setInt(1, id);
                 rst = state.executeQuery();
                 while (rst.next()){
                    volumeNormal.add(rst.getString(4));
                 }
-                state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  Current FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=3 ORDER BY timeCorrektor  LIMIT 24");
+                state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  CurrentValues FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=3 ORDER BY timeCorrektor  LIMIT 24");
                 state.setInt(1, id);
                 rst = state.executeQuery();
                 while (rst.next()){
                     volumePress.add(rst.getString(4));
                 }
-                state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  Current FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=4 ORDER BY timeCorrektor  LIMIT 24");
+                state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  CurrentValues FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=4 ORDER BY timeCorrektor  LIMIT 24");
                 state.setInt(1, id);
                 rst = state.executeQuery();
                 while (rst.next()){
@@ -497,6 +497,36 @@ public class ConnectToBD {
              }
         }
         return volume;
+    }
+    public List<String> attenVol(Integer id, Timestamp dateBegin, Timestamp dateEnd){
+        List<String> attention = new ArrayList<String>();
+        try{
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT Alarm.AlarmDateBegin, Alarm.AlarmDateEnd, AlarmTag.AlarmTag FROM AlarmTag LEFT JOIN Alarm ON Alarm.AlarmTag_idAlarmTag=AlarmTag.idAlarmTag" +
+                    " WHERE Alarm.AlarmDateBegin BETWEEN ? AND ? AND kp_idkp=?");
+            try{
+                stmt.setTimestamp(1,dateBegin);
+                stmt.setTimestamp(2,dateEnd);
+                stmt.setInt(3,id);
+                attention.add("\"response\":[");
+                ResultSet rst = stmt.executeQuery();
+                while (rst.next()){
+                    if (attention.size()>1){
+                        attention.add(", [\""+rst.getString(1)+"\","+
+                                "\""+rst.getString(2)+"\",\""+rst.getString(3)+"\"]");
+                    }
+                    else attention.add("[\""+rst.getString(1)+"\","+
+                    "\""+rst.getString(2)+"\",\""+rst.getString(3)+"\"]");
+
+                }
+            }finally {
+                stmt.close();
+            }
+
+        }   catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return attention;
     }
 
 
