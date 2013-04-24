@@ -90,7 +90,6 @@
 <div id="dayTab" class="grad">
     <div id="headerDiagDay"><p> Выберите даты:</p></div>
 <form name="DailyArchive" method="get" action="" id="formDailyArchive">C:<input type="text" name="beginDate" id="datepickerBegin" size="9" class="begin"/>
-
     По:<input type="text" name="endDate" id="datepickerEnd" size="9" class="end"/></form>
   <div id="buttonDaily"><a href="#" class="dailyArchiv" onclick="day()">Показать архив</a></div>
     <div id="tableDay">
@@ -103,13 +102,8 @@
                 <th width="20%">Нормальный объём, м3</th>
                 <th>Давление</th>
                 <th>Температура</th>
-
-
-
-
             </tr>
             </thead>
-
         </table>
     </div>
 </div>
@@ -129,10 +123,7 @@
     $("#datepickerEnd").val(today);
     $( "#datepickerEnd" ).datepicker();
     });
-
 </script>
-
-
 <div id="hourTab" class="grad">
     <div id="headerDiagHour"><p> Выберите даты:</p></div>
 <form name="HourlyArchive" method="get" action="" id="formHourlyArchive">C:
@@ -140,15 +131,12 @@
     <input type="text"  id="spinBegin" name="value" size="1" />
     По:<input type="text" name="endDate" id="datepickerEndHourly" size="9" class="end"/>
     <input type="text" id="spinEnd" name="value" size="1" />
-
 </form>
     <div id="buttonHourly"><a href="#" class="dailyArchiv" onclick="hour()">Показать архив</a></div>
-
     <div id="tableHour">
         <table cellpadding="0" cellspacing="0" border="0" class="display" id="hourTable" style="width:98%">
             <thead>
             <tr>
-
                 <th width="30%">Время начала</th>
                 <th width="30%">Время окончания</th>
                 <th width="20%" >Рабочий объем, м3</th>
@@ -198,26 +186,21 @@
             <th width="20%" >Рабочий объем, м3</th>
             <th width="20%">Нормальный объём, м3</th>
             <th width="20%">Давление</th>
-            <th>Температура</th>
+            <th width='20%'>Температура</th>
         </tr>
         </thead>
-
     </table>
 </div>
-
-
 </div>
 <script type="text/javascript">
     var tableForCurrent = $('#data');
     var table = document.getElementById("dannie");
     var jsonData = null;
     $(document).ajaxStart(function(){
-        console.log("start!!!");
         $('#parent_popup').show();
     });
 
     $(document).ajaxStop(function(){
-        console.log("stoooop!");
         $('#parent_popup').hide();
     });
 
@@ -233,7 +216,6 @@
             "sInfo": "Показано _START_ to _END_ of _TOTAL_ записей",
             "sInfoEmpty": "Показано 0 to 0 of 0 записей",
             "sInfoFiltered": "(Поиск по _MAX_ записей)",
-
             "bJQueryUI": true,
             "sPaginationType": "full_numbers",
             "sScrollY": 450,
@@ -250,7 +232,6 @@
         type:'GET',
         success:function ( data1 ) {
            tableForCurrent.empty();
-        //    dannie.empty();
             tableForCurrent.prepend(function(j){
                 var result = '<tfoot><tr>';
                 for(var i=0; i<data1.workVol.length; i++){
@@ -263,19 +244,6 @@
                 result=result +'</tr></tbody>';
                 return result;
             });
-          /*  dannie.prepend(function(j){
-                var res = '';
-            //    var res = '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" style="width:800px">'+
-            //            '<thead><tr><th>Время</th><th>Рабочий объем, м3</th><th>Нормальный объём, м3</th><th>Давление</th>'+
-            //            '<th>Температура</th></tr></thead><tbody id=dannie>';
-                for(var i=0; i<data1.workVol.length; i++){
-                            res +='<tr class="gradeA odd"><td>'+data1.workVol[i].timeCorrector+
-                            '</td><td>'+data1.workVol[i].current+'</td><td>'+data1.normalVol[i].current+
-                            '</td><td>'+data1.pressure[i].current+'</td><td>'+data1.temper[i].current+'</td></tr>';
-                }
-                return res;
-            }); */
-
         }
     }).error( function()  {
                 console.log("error");
@@ -295,17 +263,13 @@
                     return function() { document.getElementById("titleEnterprise").innerHTML = '<p id="'+data1.response[i].id+'">'+data1.response[i].enterprise+'</p>';
                         day();
                         hour();
-                        //current();
                         currentVol(data1.response[i].id);
                         $('#holder').empty();
                         graph(data1.response[i].id);
-
                         }
                 }(i);
-
                 ahref.innerHTML=data1.response[i].enterprise;
                 node.insertBefore(ahref, null);
-
             }
             currentVol(data1.response[0].id);
             graph(data1.response[0].id);
@@ -326,8 +290,6 @@
         $('#current').show();
         current();
     }
-
-
     $(function() {
         $("a").click(function(e) {
             e.preventDefault();
@@ -335,13 +297,7 @@
             $(this).addClass("active");
         });
     });
-
-
     </script>
-
-
-
-
 <script type="text/javascript">
     $(function() {
         var spinBegin = $( "#spinBegin" ).spinner({

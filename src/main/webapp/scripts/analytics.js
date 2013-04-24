@@ -51,9 +51,6 @@ var graph = function (id) {
     // Grab the data
     var labels = [],
         data = [];
- //   $("#data tfoot th").each(function () {
- //       labels.push($(this).html());
- //   });
     $.ajax( 'services/currentVol/'+id, {
         dataType:'json',
         type:'GET',
@@ -61,16 +58,10 @@ var graph = function (id) {
             for(var i=0; i<data1.workVol.length; i++){
                 data[i]=data1.workVol[i].current;
                 labels[i]=data1.workVol[i].timeCorrector;
-                //console.log(data[i]);
             }
             drawgraph(data, labels);
 
         }});
- //   $("#data tbody td").each(function () {
- //       data.push($(this).html());
-//
-//    });
-
 
     // Draw
  var drawgraph = function(data, labels){   var width = 950,
@@ -83,7 +74,7 @@ var graph = function (id) {
         r = Raphael("holder", width, height),
         txt = {font: '12px Helvetica, Arial', fill: "#fff"},
         txt1 = {font: '10px Helvetica, Arial', fill: "#fff"},
-        txt2 = {font: '12px Helvetica, Arial', fill: "#000"},
+        //txt2 = {font: '12px Helvetica, Arial', fill: "#000"},
         X = (width - leftgutter) / labels.length,
         max = Math.max.apply(Math, data),
         Y = (height - bottomgutter - topgutter) / max;

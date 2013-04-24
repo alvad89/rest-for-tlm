@@ -268,7 +268,7 @@ public class ConnectToBD {
         List<String> volume=new ArrayList<String>();
         try {
             //рабочий объём
-            PreparedStatement state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  Current FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=1 ORDER BY timeCorrektor  LIMIT 24");
+            PreparedStatement state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  CurrentValues FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=1 ORDER BY timeCorrektor  LIMIT 24");
             try{
                 state.setInt(1, id);
                 volume.add("\"id\":"+String.valueOf(id)+", \"workVol\":[");
@@ -279,7 +279,7 @@ public class ConnectToBD {
                     else volume.add("{ \"timeCorrector\":\"" + rst.getString(3) + "\",\"current\":\"" + rst.getString(4) + "\"}");
                 }
             //нормальный объём
-                state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  Current FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=2 ORDER BY timeCorrektor  LIMIT 24");
+                state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  CurrentValues FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=2 ORDER BY timeCorrektor  LIMIT 24");
                 state.setInt(1, id);
                 volume.add("],\"normalVol\":[");
                 rst = state.executeQuery();
@@ -288,7 +288,7 @@ public class ConnectToBD {
                         volume.add(", { \"timeCorrector\":\"" + rst.getString(3) + "\",\"current\":\"" + rst.getString(4) + "\"}");
                     else volume.add("{ \"timeCorrector\":\"" + rst.getString(3) + "\",\"current\":\"" + rst.getString(4) + "\"}");
                 }
-                state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  Current FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=3 ORDER BY timeCorrektor  LIMIT 24");
+                state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  CurrentValues FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=3 ORDER BY timeCorrektor  LIMIT 24");
                 state.setInt(1, id);
                 volume.add("],\"pressure\":[");
                 rst = state.executeQuery();
@@ -297,7 +297,7 @@ public class ConnectToBD {
                         volume.add(", { \"timeCorrector\":\"" + rst.getString(3) + "\",\"current\":\"" + rst.getString(4) + "\"}");
                     else volume.add("{ \"timeCorrector\":\"" + rst.getString(3) + "\",\"current\":\"" + rst.getString(4) + "\"}");
                 }
-                state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  Current FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=4 ORDER BY timeCorrektor  LIMIT 24");
+                state = getConnection().prepareStatement("SELECT Nitka, CurrentTime, timeCorrektor,  CurrentValues FROM CurrentValues WHERE kp_idkp=? AND nameCurrent_idnameCurrent=4 ORDER BY timeCorrektor  LIMIT 24");
                 state.setInt(1, id);
                 volume.add("],\"temper\":[");
                 rst = state.executeQuery();
