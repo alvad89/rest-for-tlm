@@ -1,7 +1,6 @@
 body {
     background: #333;
     font: 300 65.1% "Helvetica Neue", Helvetica, "Arial Unicode MS", Arial, sans-serif;
-
 }
 #holder {
     position: inherit;
@@ -12,8 +11,6 @@ body {
     font: 300 100%;
     position: inherit;
 }
-
-
 #danDay{
     font: 300 100%;
     position: inherit;
@@ -21,7 +18,6 @@ body {
     margin-top: 25px;
     margin-left: 5px;
     width: 740px;
-
 }
 h1{
 	font-size: 32px;
@@ -67,7 +63,6 @@ h3{
     color: #fff;
 }
 #searchInput{
-
     width: 100%;
     -moz-border-radius:4px;
     -webkit-border-radius:4px;
@@ -81,7 +76,6 @@ h3{
 #search{
     width: 245px;
 }
-
 .dailyArchiv {
     -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
     -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -105,7 +99,6 @@ h3{
       position:relative;
       top:1px;
   }
-
 #formDailyArchive{
 color:#fff;
 font-size:14px;
@@ -189,14 +182,14 @@ margin-top: -20px;
 }
 
 #graphButton{
-    margin: -31px 0 0 280px;
+    margin: -31px 0 0 10px;
 
     clear: right;
 }
 
 #tableButton{
 
-    margin: -20px 0 0 400px;
+    margin: -19px 0 0 130px;
     position: relative;
 }
 
@@ -230,6 +223,7 @@ margin-top: -20px;
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
 	background-color:#dfdfdf;
 }.enterprise:active {
+    display:inline-block;
 	position:relative;
 	top:1px;
     background: red;
@@ -477,6 +471,3 @@ ul{
 #tableAtten{
     margin-top: 20px;
 }
-
-
-

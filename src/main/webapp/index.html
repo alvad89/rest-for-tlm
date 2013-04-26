@@ -86,11 +86,12 @@
         });
     });
 
+
 </script>
 <div id="dayTab" class="grad">
     <div id="headerDiagDay"><p> Выберите даты:</p></div>
-<form name="DailyArchive" method="get" action="" id="formDailyArchive">C:<input type="text" name="beginDate" id="datepickerBegin" size="9" class="begin"/>
-    По:<input type="text" name="endDate" id="datepickerEnd" size="9" class="end"/></form>
+<form name="DailyArchive" method="get" action="" id="formDailyArchive">C:<input type="text" name="beginDate" id="datepickerBegin" size="10" class="begin"/>
+    По:<input type="text" name="endDate" id="datepickerEnd" size="10" class="end"/></form>
   <div id="buttonDaily"><a href="#" class="dailyArchiv" onclick="day()">Показать архив</a></div>
     <div id="tableDay">
         <table cellpadding="0" cellspacing="0" border="0" class="display" id="dayTable" style="width:98%">
@@ -127,9 +128,9 @@
 <div id="hourTab" class="grad">
     <div id="headerDiagHour"><p> Выберите даты:</p></div>
 <form name="HourlyArchive" method="get" action="" id="formHourlyArchive">C:
-    <input type="text" name="beginDate" id="datepickerBeginHourly" size="9" class="begin"/>
+    <input type="text" name="beginDate" id="datepickerBeginHourly" size="10" class="begin"/>
     <input type="text"  id="spinBegin" name="value" size="1" />
-    По:<input type="text" name="endDate" id="datepickerEndHourly" size="9" class="end"/>
+    По:<input type="text" name="endDate" id="datepickerEndHourly" size="10" class="end"/>
     <input type="text" id="spinEnd" name="value" size="1" />
 </form>
     <div id="buttonHourly"><a href="#" class="dailyArchiv" onclick="hour()">Показать архив</a></div>
@@ -186,7 +187,7 @@
             <th width="20%" >Рабочий объем, м3</th>
             <th width="20%">Нормальный объём, м3</th>
             <th width="20%">Давление</th>
-            <th width='20%'>Температура</th>
+            <th width="5%">Температура</th>
         </tr>
         </thead>
     </table>
@@ -278,6 +279,13 @@
     }).error( function() {
                 console.log("error");
             });
+    $(function() {
+        $("a").click(function(e) {
+            e.preventDefault();
+            $("a").removeClass("active");
+            $(this).addClass("active");
+        });
+    });
     var current = function (){
         var idEnt = document.getElementById("titleEnterprise");
         currentVol(idEnt.childNodes[0].id);
@@ -336,8 +344,8 @@
 <div id="attenTab" class="grad">
     <div id="headerAtten"><p>Выберите даты:</p></div>
     <form name="AttenArchive" method="get" action="" id="formAtten">
-        C:<input type="text" name="beginDate" id="datepickerBeginAtten" size="9" class="begin"/>
-        По:<input type="text" name="endDate" id="datepickerEndAtten" size="9" class="end"/></form>
+        C:<input type="text" name="beginDate" id="datepickerBeginAtten" size="10" class="begin"/>
+        По:<input type="text" name="endDate" id="datepickerEndAtten" size="10" class="end"/></form>
     <div id="buttonAtten"><a href="#" class="dailyArchiv" onclick="attention()">Показать архив</a></div>
 
     <div id="tableAtten">
