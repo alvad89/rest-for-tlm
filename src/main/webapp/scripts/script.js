@@ -64,11 +64,16 @@ var day = function(){
     //$('dayTable').empty();
     //dayVal(idEnt.childNodes[0].id, dateBegin, dateEnd);
     $('#dayTable').dataTable( {
-        "sLengthMenu": "Показывать по _MENU_ записей",
-        "sZeroRecords": "Ничего не найдено",
-        "sInfo": "Показано _START_ to _END_ of _TOTAL_ записей",
-        "sInfoEmpty": "Показано 0 to 0 of 0 записей",
-        "sInfoFiltered": "(Поиск по _MAX_ записей)",
+        "oLanguage":{"sSearch": "Поиск:",
+            "sLengthMenu": 'Показывать по <select>'+
+                '<option value="50">50</option>'+
+                '<option value="100">100</option>'+
+                '<option value="-1">All</option>'+
+                '</select> записей',
+            "sZeroRecords": "Ничего не найдено",
+            "sInfo": "Показано _START_ to _END_ of _TOTAL_ записей",
+            "sInfoEmpty": "Показано 0 to 0 of 0 записей",
+            "sInfoFiltered": "(Поиск по _MAX_ записей)"},
 
         "iDisplayLength": 50,
         "sScrollY": 480,
@@ -122,11 +127,16 @@ var hour = function(){
     var idEnt = document.getElementById("titleEnterprise");
     //hourlVal(idEnt.childNodes[0].id, dateBegin, dateEnd);
     $('#hourTable').dataTable( {
-        "sLengthMenu": "Показывать по _MENU_ записей",
-        "sZeroRecords": "Ничего не найдено",
-        "sInfo": "Показано _START_ to _END_ of _TOTAL_ записей",
-        "sInfoEmpty": "Показано 0 to 0 of 0 записей",
-        "sInfoFiltered": "(Поиск по _MAX_ записей)",
+        "oLanguage":{"sSearch": "Поиск:",
+            "sLengthMenu": 'Показывать по <select>'+
+                '<option value="50">50</option>'+
+                '<option value="100">100</option>'+
+                '<option value="-1">All</option>'+
+                '</select> записей',
+            "sZeroRecords": "Ничего не найдено",
+            "sInfo": "Показано _START_ to _END_ of _TOTAL_ записей",
+            "sInfoEmpty": "Показано 0 to 0 of 0 записей",
+            "sInfoFiltered": "(Поиск по _MAX_ записей)"},
 
         "iDisplayLength": 50,
         "sScrollY": 480,
@@ -139,30 +149,9 @@ var hour = function(){
         "sAjaxSource": "services/hourlVol/"+idEnt.childNodes[0].id+"?dateBegin="+dateBegin+"&dateEnd="+dateEnd
 
     } );
-}
+};
 
-window.onload = function() {//onload begin
-    var inp = document.getElementById('searchInput');
 
-    var find = function() {//find begin
-        var parent = document.getElementById('listEnterprise');
-        var divs = parent.getElementsByTagName('a');
-        var len = divs.length;
-        for (var i = 0; i < len; i++) {//for begin
-       //     if($("a:contains("+inp.value+")") && inp.value != '') {console.log("aaaaaaaaaaaaaa");
-       //             divs[i].style.display = 'block';}
-           if (inp.value != divs[i].innerHTML && inp.value != '') {
-                divs[i].style.display = 'none';}
-             else if (divs[i].style.display != 'block' && inp.value.length<2) {
-                divs[i].style.display = 'block';
-            }
-        }//for end
-    }//find end
-    inp.onkeyup = function() {
-        find();
-    };
-
-}//onload end
 var showOnlyAttention = function(){
     $('#hourTab').hide();
     $('#dayTab').hide();
@@ -178,11 +167,16 @@ var attention = function(){
     dateEnd = dateEnd + " 11:59:59";
     var idEnt = document.getElementById("titleEnterprise");
     $('#attenTable').dataTable( {
-        "sLengthMenu": "Показывать по _MENU_ записей",
-        "sZeroRecords": "Ничего не найдено",
-        "sInfo": "Показано _START_ to _END_ of _TOTAL_ записей",
-        "sInfoEmpty": "Показано 0 to 0 of 0 записей",
-        "sInfoFiltered": "(Поиск по _MAX_ записей)",
+        "oLanguage":{"sSearch": "Поиск:",
+            "sLengthMenu": 'Показывать по <select>'+
+                '<option value="50">50</option>'+
+                '<option value="100">100</option>'+
+                '<option value="-1">All</option>'+
+                '</select> записей',
+            "sZeroRecords": "Ничего не найдено",
+            "sInfo": "Показано _START_ to _END_ of _TOTAL_ записей",
+            "sInfoEmpty": "Показано 0 to 0 of 0 записей",
+            "sInfoFiltered": "(Поиск по _MAX_ записей)"},
 
         "iDisplayLength": 50,
         "sScrollY": 480,
@@ -211,6 +205,86 @@ $(function() {
     $("#datepickerEndAtten").val(today);
     $( "#datepickerEndAtten" ).datepicker();
 });
+
+
+//search
+var ex1,  ex2, blist, filterval, fworking=false;
+function listsearch(){
+    ex1 = document.getElementById("listEnterprise");
+    ex2 = ex1.cloneNode(true);
+    ex2.setAttribute("id","links");
+    ex1.parentNode.insertBefore(ex2,ex1);
+    ex2.style.display="none";
+    blist = ex2.getElementsByTagName("A");
+    list2select(blist, "rubrika", setCookie);
+
+}
+onload=listsearch;
+function pickup(obj) {
+    if (obj.value.length<2) {
+        /*если ещё не набрал 2 буквы или стёр до одной*/
+        obj.style.color="#000";
+        ex1.style.display="block" ;
+        ex2.style.display="none";
+        filterval=obj.value;
+        c.firstChild.nodeValue=0
+        return
+    }
+    /*если не отработал предыдущий поиск,
+     или поле поиска не изменилось (например, нажали стрелку Left)*/
+    if (fworking || filterval==obj.value) return;
+    var fflagg=false, i=0, str="", el, val, q, qr;
+    filterval=obj.value; fworking=true;
+    ex1.style.display="none"; /*резервный список скрываем*/
+    q=obj.value.toLocaleLowerCase();
+    qr=q.substr(1);
+
+    for (var s=0; s<blist.length; s++) {
+        el=blist[s];
+      //  if ("_top"!=el.target) continue; /*так, лишняя проверка*/
+        val=el.firstChild.nodeValue.toLocaleLowerCase();
+        if ((0==q.indexOf(" ") && val.indexOf(qr)>-1) || 0==val.indexOf(q)) {
+            fflagg=true; el.style.display="block"; i++;
+        } /*каждый элемент списка поиска отображаем или скрываем*/
+        else el.style.display="none";
+    }
+
+    if (!fflagg) { /*если ничего не найдено*/
+        obj.style.color="#c00";
+        ex1.style.display="block"; /*отображаем резерв целиком*/
+        ex2.style.display="none"; /*список поиска скрываем*/
+    }
+    else { /*если найден хоть один элемент*/
+        obj.style.color="#000";
+        ex1.style.display="none";
+        ex2.style.display="block";
+    }
+   // c.firstChild.nodeValue=i
+    fworking=false;
+}
+function list2select(alist, inputname) {
+
+    var aa, id, tx, o, inputcoo=getCookie(inputname);
+    if (!alist) return "alist";
+    var el=document.createElement("SELECT");
+    el.name=inputname;
+    el.onchange= $.cookie();
+
+    for (var a=0; a<alist.length; a++) {
+        if (1==alist[a].nodeType){ /*можно выбирать ссылки по разным признакам*/
+            aa=alist[a];
+            id = /(\d+)$/.exec(aa.href);
+            id=(id)?id[0]:0;
+            tx=document.createTextNode(aa.firstChild.nodeValue);
+            o=document.createElement("OPTION");
+            if (id==inputcoo) o.selected=true;
+            o.value=id; o.appendChild(tx);
+            el.appendChild(o);
+        }
+    }
+    document.forms[0].appendChild(el);
+}
+
 
 
 

@@ -65,7 +65,24 @@
 <div id="titleEnterprise"><p>.</p></div>
 
 <div id='search'>
-<form name="search" method="get" action="" id="formsearch"><input type="text" id="searchInput" size="30" value="Поиск" /></form>
+<form name="search" method="get" action="" id="formsearch"><input type="text" id="searchInput" size="30" value="Поиск" onclick="pickup(this)"/></form>
+<script>
+    var $search = $('#searchInput');
+    original_val = $search.val();
+
+    $search.focus(function(){
+        if($(this).val()===original_val){
+            $(this).val('');
+
+        }
+
+    })
+            .blur(function(){
+                if($(this).val()===''){
+                    $(this).val(original_val);
+                }
+            });
+</script>
 </div>
 <div id="listEnterprise"></div>
 
@@ -212,11 +229,18 @@
     var dannie = $('#dannie');
 
         $('#example').dataTable( {
-            "sLengthMenu": "Показывать по _MENU_ записей",
-            "sZeroRecords": "Ничего не найдено",
-            "sInfo": "Показано _START_ to _END_ of _TOTAL_ записей",
-            "sInfoEmpty": "Показано 0 to 0 of 0 записей",
-            "sInfoFiltered": "(Поиск по _MAX_ записей)",
+            "oLanguage":{
+                "sSearch": "Поиск:",
+                "sLengthMenu": 'Показывать по <select>'+
+                        '<option value="50">50</option>'+
+                        '<option value="100">100</option>'+
+                        '<option value="-1">All</option>'+
+                        '</select> записей',
+                "sZeroRecords": "Ничего не найдено",
+                "sInfo": "Показано _START_ to _END_ of _TOTAL_ записей",
+                "sInfoEmpty": "Показано 0 to 0 of 0 записей",
+                "sInfoFiltered": "(Поиск по _MAX_ записей)"},
+
             "bJQueryUI": true,
             "sPaginationType": "full_numbers",
             "sScrollY": 450,
