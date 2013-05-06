@@ -208,7 +208,9 @@ $(function() {
 
 
 //search
-var ex1,  ex2, blist, filterval, fworking=false;
+//
+//
+var c,ex1,  ex2, blist, filterval, fworking=false;
 function listsearch(){
     ex1 = document.getElementById("listEnterprise");
     ex2 = ex1.cloneNode(true);
@@ -216,7 +218,7 @@ function listsearch(){
     ex1.parentNode.insertBefore(ex2,ex1);
     ex2.style.display="none";
     blist = ex2.getElementsByTagName("A");
-    list2select(blist, "rubrika", setCookie);
+    list2select(blist, "rubrika");
 
 }
 onload=listsearch;
@@ -227,7 +229,7 @@ function pickup(obj) {
         ex1.style.display="block" ;
         ex2.style.display="none";
         filterval=obj.value;
-        c.firstChild.nodeValue=0
+        c.firstChild.nodeValue=0;
         return
     }
     /*если не отработал предыдущий поиск,
@@ -264,7 +266,7 @@ function pickup(obj) {
 }
 function list2select(alist, inputname) {
 
-    var aa, id, tx, o, inputcoo=getCookie(inputname);
+    var aa, id, tx, o, inputcoo=$.cookie(inputname);
     if (!alist) return "alist";
     var el=document.createElement("SELECT");
     el.name=inputname;
@@ -284,8 +286,6 @@ function list2select(alist, inputname) {
     }
     document.forms[0].appendChild(el);
 }
-
-
-
-
-
+//
+//
+//

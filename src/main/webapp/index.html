@@ -69,13 +69,10 @@
 <script>
     var $search = $('#searchInput');
     original_val = $search.val();
-
     $search.focus(function(){
         if($(this).val()===original_val){
             $(this).val('');
-
         }
-
     })
             .blur(function(){
                 if($(this).val()===''){
@@ -85,15 +82,12 @@
 </script>
 </div>
 <div id="listEnterprise"></div>
-
 <ul class="tab" id="vkladk">
     <li class="active"><a href="#" onclick="showOnlyCurrent()"><span>Текущая информация</span></a></li>
     <li><a href="#" onclick="showOnlyDay()"><span>Суточные архивы</span></a></li>
     <li><a href="#" onclick="showOnlyHour()"><span>Часовые архивы</span></a></li>
     <li><a href="#" onclick="showOnlyAttention()"><span>Нештатные ситуации</span></a></li>
-
 </ul>
-
 <script>
     $(function() {
         $("li").click(function(e) {
@@ -102,8 +96,6 @@
             $(this).addClass("active");
         });
     });
-
-
 </script>
 <div id="dayTab" class="grad">
     <div id="headerDiagDay"><p> Выберите даты:</p></div>
@@ -163,10 +155,8 @@
                 <th>Температура</th>
             </tr>
             </thead>
-
         </table>
     </div>
-
 </div>
 <script>
 
@@ -226,6 +216,7 @@
 
     var currentVol = function (id){
     var data1=null;
+
     var dannie = $('#dannie');
 
         $('#example').dataTable( {
@@ -344,11 +335,11 @@
         if(month < 10)
             month = "0" + month;
         var day = now.getDate();
-        //if (day<10) day = "0"+day;
+        if (day<10) day = "0"+day;
         if(now.getHours()<12){
             if(day<10)
             $("#datepickerBeginHourly").val(now.getFullYear()+'-'+month+'-0'+(day-1));
-            else $("#datepickerBeginHourly").val(now.getFullYear()+'-'+month+'-'+(day-1));
+            else $("#datepickerBeginHourly").val(now.getFullYear()+'-'+month+'-0'+(day-1));
         }
         else {
 

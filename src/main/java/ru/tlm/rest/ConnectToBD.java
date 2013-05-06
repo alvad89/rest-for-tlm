@@ -279,7 +279,7 @@ public class ConnectToBD {
         List<String> volume = new ArrayList<String>();
         volume.add("\"response\": [");
         String s = null;
-        for(int i=0; i<24; i++){
+        for(int i=0; i<volumeTime.size(); i++){
              if (i>0){
                s=",[\""+volumeTime.get(i)+"\",\""+volumeNormal.get(i)+"\",\""+
                        volumeWork.get(i)+"\",\""+volumePress.get(i)+"\",\""+
