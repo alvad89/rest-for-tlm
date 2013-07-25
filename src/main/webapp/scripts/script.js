@@ -1,26 +1,19 @@
-var tableHolder = $('#tableHolder');
 var holder = $('#holder');
-//var buttonTable = $('#tableButton');
-//var buttonGraph = $('#graphButton');
 
 function isTable(){
-tableHolder = $('#tableHolder');
-var buttonTable = $('#tableButton');
-buttonTable.click(function(){
-holder.hide();
-tableHolder.show();
-
-});}
+    $('#tableButton').click(function(){
+        $('#holder').hide();
+        $('#tableHolder').show();
+    });
+}
 
 //buttonGraph
 function isGraph(){
-holder = $('#holder');
-var buttonGraph = $('#graphButton');
-buttonGraph.click(function(){
-tableHolder.hide();
-
-holder.show();
-});}
+    $('#graphButton').click(function(){
+        $('#tableHolder').hide();
+        $('#holder').show();
+    });
+}
 
 
 
@@ -51,6 +44,7 @@ var showOnlyDay = function(){
     $('#current').hide();
     $('#hourTab').hide();
     $('#attenTab').hide();
+    $('#additionally').hide();
     $('#dayTab').show();
     day();
 }
@@ -114,6 +108,7 @@ var showOnlyHour = function(){
     $('#hourTab').show();
     $('#dayTab').hide();
     $('#current').hide();
+    $('#additionally').hide();
     $('#attenTab').hide();
     hour();
 }
@@ -156,6 +151,7 @@ var showOnlyAttention = function(){
     $('#hourTab').hide();
     $('#dayTab').hide();
     $('#current').hide();
+    $('#additionally').hide();
     $('#attenTab').show();
     attention();
 };
@@ -206,10 +202,81 @@ $(function() {
     $( "#datepickerEndAtten" ).datepicker();
 });
 
+var showOnlyAddit = function(){
+    $('#hourTab').hide();
+    $('#dayTab').hide();
+    $('#current').hide();
+    $('#attenTab').hide();
+    $('#additionally').show();
+
+};
+
 
 //search
+var search = function(value){
+var massiv = document.getElementById("listEnterprise");
+var nameNode = massiv.getElementsByTagName("a");
+var inpSearch = document.getElementById("search").value;
+    if (inpSearch != ''){
+        for(var i=0; i<nameNode.length; i++){
+            console.log(nameNode[i].innerHTML);
+            if(nameNode[i].innerHTML.ignoreCase == value.ignoreCase){
+               // console.log(value);
+                console.log("ok@!");
+            }
+        }
+
+    }
+};
+
+//
+function pick(obj) {
+    var invis_class="disnone_if", fflagg=false, i=0, el, val,
+        q, q_int, qr, qrx, row, c=obj.nextSibling, t=obj.parentNode
+
+    if (obj.value.length&lt;1) {
+        obj.style.color="#000"
+        delclass(t, "disnone_child")
+        window.filterval=obj.value
+        c.firstChild.nodeValue=0
+        return
+    }
+    if (window.fworking || window.filterval==obj.value) return;
+    window.filterval=obj.value; window.fworking=true
+
+    var blist=t.getElementsByTagName("A")
+
+    q=obj.value.toLocaleLowerCase()
+    qr=q.substr(1)
+    for (var s=0; s&lt;blist.length; s++) {
+        el=blist[s]
+        val=el.firstChild.nodeValue.toLocaleLowerCase()
+        if ((0==q.indexOf(" ") && val.indexOf(qr)>-1) || 0==val.indexOf(q)) {
+            fflagg=true; delclass(el, "disnone_if"); i++
+        } /*каждый элемент списка поиска отображаем или скрываем*/
+        else addclass(el, "disnone_if")
+    }
+
+    if (!fflagg) { /*если ничего не найдено*/
+        obj.style.color="#c00"
+        delclass(t, "disnone_child")
+    }
+    else { /*если найден хоть один элемент*/
+        obj.style.color="#000"
+        addclass(t, "disnone_child")
+    }
+    c.firstChild.nodeValue=i
+    window.fworking=false
+}
+
+
+
+
+
+
 //
 //
+/*
 var c,ex1,  ex2, blist, filterval, fworking=false;
 function listsearch(){
     ex1 = document.getElementById("listEnterprise");
@@ -224,7 +291,7 @@ function listsearch(){
 onload=listsearch;
 function pickup(obj) {
     if (obj.value.length<2) {
-        /*если ещё не набрал 2 буквы или стёр до одной*/
+        /*если ещё не набрал 2 буквы или стёр до одной
         obj.style.color="#000";
         ex1.style.display="block" ;
         ex2.style.display="none";
@@ -233,30 +300,30 @@ function pickup(obj) {
         return
     }
     /*если не отработал предыдущий поиск,
-     или поле поиска не изменилось (например, нажали стрелку Left)*/
+     или поле поиска не изменилось (например, нажали стрелку Left)
     if (fworking || filterval==obj.value) return;
     var fflagg=false, i=0, str="", el, val, q, qr;
     filterval=obj.value; fworking=true;
-    ex1.style.display="none"; /*резервный список скрываем*/
+    ex1.style.display="none"; /*резервный список скрываем
     q=obj.value.toLocaleLowerCase();
     qr=q.substr(1);
 
     for (var s=0; s<blist.length; s++) {
         el=blist[s];
-      //  if ("_top"!=el.target) continue; /*так, лишняя проверка*/
+      //  if ("_top"!=el.target) continue; /*так, лишняя проверка
         val=el.firstChild.nodeValue.toLocaleLowerCase();
         if ((0==q.indexOf(" ") && val.indexOf(qr)>-1) || 0==val.indexOf(q)) {
             fflagg=true; el.style.display="block"; i++;
-        } /*каждый элемент списка поиска отображаем или скрываем*/
+        } /*каждый элемент списка поиска отображаем или скрываем
         else el.style.display="none";
     }
 
-    if (!fflagg) { /*если ничего не найдено*/
+    if (!fflagg) { /*если ничего не найдено
         obj.style.color="#c00";
-        ex1.style.display="block"; /*отображаем резерв целиком*/
-        ex2.style.display="none"; /*список поиска скрываем*/
+        ex1.style.display="block"; /*отображаем резерв целиком
+        ex2.style.display="none"; /*список поиска скрываем
     }
-    else { /*если найден хоть один элемент*/
+    else { /*если найден хоть один элемент
         obj.style.color="#000";
         ex1.style.display="none";
         ex2.style.display="block";
@@ -273,9 +340,8 @@ function list2select(alist, inputname) {
     el.onchange= $.cookie();
 
     for (var a=0; a<alist.length; a++) {
-        if (1==alist[a].nodeType){ /*можно выбирать ссылки по разным признакам*/
+        if (1==alist[a].nodeType){ /*можно выбирать ссылки по разным признакам
             aa=alist[a];
-            id = /(\d+)$/.exec(aa.href);
             id=(id)?id[0]:0;
             tx=document.createTextNode(aa.firstChild.nodeValue);
             o=document.createElement("OPTION");
@@ -285,7 +351,4 @@ function list2select(alist, inputname) {
         }
     }
     document.forms[0].appendChild(el);
-}
-//
-//
-//
+}*/

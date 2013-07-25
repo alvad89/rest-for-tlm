@@ -326,9 +326,6 @@ public class ConnectToBD {
         return attention;
     }
 
-
-
-
     private Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/Telemetria?useUnicode=true&characterEncoding=utf8";
         String username = "usr_tlm";

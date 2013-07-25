@@ -65,14 +65,16 @@
 <div id="titleEnterprise"><p>.</p></div>
 
 <div id='search'>
-<form name="search" method="get" action="" id="formsearch"><input type="text" id="searchInput" size="30" value="Поиск" onclick="pickup(this)"/></form>
+<form name="search" method="get" action="" id="formsearch"><input type="text" id="searchInput" size="30" value="Поиск" onkeyup="pick(this)"/></form>
 <script>
     var $search = $('#searchInput');
     original_val = $search.val();
     $search.focus(function(){
-        if($(this).val()===original_val){
+        while($(this).val()===original_val){
             $(this).val('');
+           // search($search.val());
         }
+
     })
             .blur(function(){
                 if($(this).val()===''){
@@ -87,6 +89,7 @@
     <li><a href="#" onclick="showOnlyDay()"><span>Суточные архивы</span></a></li>
     <li><a href="#" onclick="showOnlyHour()"><span>Часовые архивы</span></a></li>
     <li><a href="#" onclick="showOnlyAttention()"><span>Нештатные ситуации</span></a></li>
+    <li><a href="#" onclick="showOnlyAddit()"><span>Дополнительно</span></a></li>
 </ul>
 <script>
     $(function() {
@@ -211,8 +214,10 @@
     $(document).ajaxStop(function(){
         $('#parent_popup').hide();
     });
-
-
+    $(document).ajaxError(function(){
+        $('#parent_popup').hide();
+        alert("Error");
+    });
 
     var currentVol = function (id){
     var data1=null;
@@ -290,6 +295,7 @@
             }
             currentVol(data1.response[0].id);
             graph(data1.response[0].id);
+            search();
         }
     }).error( function() {
                 console.log("error");
@@ -306,14 +312,15 @@
         currentVol(idEnt.childNodes[0].id);
         $('#holder').empty();
         graph(idEnt.childNodes[0].id);
-    }
+    };
     var showOnlyCurrent = function(){
         $('#hourTab').hide();
         $('#dayTab').hide();
         $('#attenTab').hide();
+        $('#additionally').hide();
         $('#current').show();
         current();
-    }
+    };
     $(function() {
         $("a").click(function(e) {
             e.preventDefault();
@@ -370,13 +377,19 @@
                 <th>Время начала</th>
                 <th>Время окончания</th>
                 <th>Описание</th>
-
             </tr>
             </thead>
 
         </table>
     </div>
 
+</div>
+
+<div id="additionally" class="grad">
+    <div id="headerAddit"><p>Настройки</p></div>
+<form name="tools" id="preference">
+
+</form>
 </div>
 <script src="scripts/analytics.js"></script>
 </body>

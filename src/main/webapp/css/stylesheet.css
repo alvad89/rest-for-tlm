@@ -62,6 +62,11 @@ h3{
     font-size: 28px;
     color: #fff;
 }
+#headerAddit{
+    position: inherit;
+    font-size: 28px;
+    color: #fff;
+}
 #searchInput{
     width: 100%;
     -moz-border-radius:4px;
@@ -122,6 +127,7 @@ font-size:14px;
     font-size: 14px;
     border: none;
     text-align: center;
+    padding-bottom: 0.5%;
 }
 .end{
     -moz-border-radius:4px;
@@ -131,11 +137,12 @@ font-size:14px;
     font-size: 14px;
     border: none;
     text-align: center;
+    padding-bottom: 0.5%;
 }
 
 #buttonDaily{
     position: inherit;
-    padding-top: 1px;
+    padding-top: 0.5%;
     margin-left: 26%;
     margin-top: -3.2%;
 
@@ -151,7 +158,6 @@ margin-top: -20px;
 
 #spinBegin{
     position: inherit;
-
     -moz-border-radius:4px;
     -webkit-border-radius:4px;
     border-radius:4px;
@@ -170,7 +176,7 @@ margin-top: -20px;
 
 #buttonHourly{
     position: inherit;
-    padding-top: 1px;
+    padding-top: 0.5%;
     margin-left: 38%;
     margin-top: -3.5%;
 }
@@ -388,6 +394,10 @@ ul{
 }
 #attenTab{
     display: none;
+}
+#additionally{
+    display: none;
+    /*margin-top: 0;*/
 }
 .grad{
     background-image: linear-gradient(left top, #333333 14%, #9E9E9E 70%);
